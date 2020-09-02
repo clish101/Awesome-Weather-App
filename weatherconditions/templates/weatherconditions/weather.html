@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'weatherconditions/css/style.css' %}">
+    <title>Weather Conditions</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <h3 class="text-center text-white mx-auto w-50">Weather App</h3>
+
+        </div>
+
+    </nav>
+    <div class="container starter">
+        <div class="row">
+            <div class="col-md-6">
+                <form action="" method="POST">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                    <label for="Weather" class="text-white">
+                        <h3>Type the city</h3>
+                    </label>
+                    <div class="input-group">
+                        {{form.name}}
+                        <div class="input-group-append">
+                            <button class="btn btn-primary">Check</button>
+                        </div>
+                    </div>
+                    {% for city in city_weather %}
+                    <div class="card bg-dark" style="opacity: 0.8;">
+                        <div class="card-body text-white">
+                            <div class="card-title d-flex">
+                                <h4>{{city.city}}</h4>
+                                <img src="https://openweathermap.org/img/w/{{city.icon}}.png" " alt="" class=" img-fluid
+                                    ml-auto">
+                            </div>
+                            <p class="card-text">{{city.temperature}} ℃</p>
+                            <div class="d-flex">
+                                <p class="card-text lead">{{city.description}}</p>
+                                <a class="ml-auto text-white" href="{% url 'delete' city.id %}"><span
+                                        class="fas fa-trash"></span></a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    {% endfor %}
+
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+body {
+  background: url('../images/weathered.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.navbar {
+  opacity: 0.6;
+}
+.starter {
+  margin-top: 100px;
+}
